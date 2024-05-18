@@ -1,0 +1,5 @@
+<div class="case-stats" [ngStyle]="{'background-color': covidCaseStat.bgColor}">
+    <p class="case-stat__status" [ngStyle]="{'color': covidCaseStat.color}">{{ covidCaseStat.status }}</p>
+    <img [src]="covidCaseStat.imageUrl" alt="checkmark" class="case-stat__icon" />
+    <p class="case-stat__number" [ngStyle]="{'color': covidCaseStat.color}">{{ covidCaseStat.cases }}</p>
+</div>

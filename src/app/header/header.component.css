@@ -1,0 +1,38 @@
+.header {
+  background: #1e1e30;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  z-index: 1000; /* Ensure it is above other content */
+}
+.header-title {
+  font-family: Bree Serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: #fff;
+  margin: 0;
+}
+.header-sub-title {
+  font-family: Bree Serif;
+  font-size: 20px;
+  font-weight: 400;
+  color: #007bff;
+}
+.header-nav-items {
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+}
+.header-nav-item {
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0 12px;
+  color: #94a3b8;
+  cursor: pointer;
+}
+
+.header-nav-item.active{
+  color: #f8fafc;
+}
