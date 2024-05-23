@@ -1,0 +1,75 @@
+.state-container {
+  min-height: 100vh;
+  background-color: #161625;
+  padding-top: 80px;
+}
+.state__info-stats {
+  display: flex;
+  justify-content: space-between;
+}
+.state__button-badge {
+  /* min-width: 200px;
+  height: 42px; */
+  padding: 13px 26px;
+  border-radius: 32px;
+  border: none;
+  color: #0ea5e9;
+  font-family: HK Grotesk;
+  font-size: 20px;
+  font-weight: 600;
+  background: #0284c729;
+}
+.state__update-status {
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 400;
+  color: #cbd5e1;
+  margin-top: 10px;
+}
+.state__tested {
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 500;
+  color: #94a3b8;
+}
+.state__tested-count {
+  font-family: Roboto;
+  font-size: 22px;
+  font-weight: 500;
+  color: #94a3b8;
+  margin: 0;
+  position: relative;
+  right: 53px;
+  bottom: 10px;
+}
+.state__covid-cases-stats {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-top: 30px;
+}
+.state__top-district-stats {
+  padding-top: 30px;
+}
+.state__top-districts-badge {
+  color: #ff073a;
+  font-family: Roboto;
+  font-size: 32px;
+  font-weight: 500;
+}
+/* .state__districts-container {
+  display: flex;
+  flex-wrap: wrap;
+} */
+.state__bar-chart {
+  padding: 50px 0px;
+}
+
+.arrow-icon-button {
+  background-color: transparent;
+  border: none;
+}
+.arrow-icon {
+  font-size: 26px;
+  margin-bottom: 14px;
+}

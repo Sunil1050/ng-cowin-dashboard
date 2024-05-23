@@ -1,0 +1,13 @@
+.about-container {
+  height: 100vh;
+  background-color: #161625;
+  padding-top: 80px;
+}
+.icon-button {
+  background-color: transparent;
+  border: none;
+  color: #fff;
+}
+.mat-icon {
+  font-size: 18px;
+}

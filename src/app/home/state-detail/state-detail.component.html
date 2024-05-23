@@ -1,0 +1,50 @@
+<div class="state-container" *ngIf="!isLoading; else loader">
+    <div class="container">
+        <div class="state__info-stats">
+            <div>
+                <button type="button" class="state__button-badge">{{ stateName }}</button>
+                <p class="state__update-status">Last update on {{ lastUpdated }}</p>
+            </div>
+            <div>
+                <p class="state__tested">Tested</p>
+                <h4 class="state__tested-count">{{ totalTested }}</h4>
+            </div>
+        </div>
+        <!-- Covid cases stats here -->
+        <div class="state__covid-cases-stats">
+            <app-case-stats *ngFor="let covidCaseStat of covid19CategoriesStateTotalStats"
+                [covidCaseStat]="covidCaseStat" (covidCaseChanged)="getActiveTab($event)">
+            </app-case-stats>
+        </div>
+        <!-- To districts stats here -->
+        <div class="state__top-district-stats">
+            <div class="d-flex">
+                <h2 class="state__top-districts-badge" [ngStyle]="{'color': getTopDistrictsBadgeColor()}">
+                    Top Districts
+                </h2>
+                <button class="arrow-icon-button" [ngStyle]="{'color': getTopDistrictsBadgeColor()}" (click)="toggleArrowIcon()">
+                    <mat-icon class="arrow-icon">{{ arrowIconToggle ? 'arrow_upward' : 'arrow_downward' }}</mat-icon>
+                </button>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <ng-container *ngFor="let districtStat of activeTabDistrictStats">
+                        <div class="col-6 col-md-4 col-lg-3">
+                            <app-district-tab [districtStat]="districtStat" [activeTab]="activeTab"></app-district-tab>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="state__bar-chart">
+            <app-bar-chart [barChartData]="activeTabBarChartData"></app-bar-chart>
+        </div>
+    </div>
+</div>
+
+<ng-template #loader>
+    <app-loader></app-loader>
+</ng-template>

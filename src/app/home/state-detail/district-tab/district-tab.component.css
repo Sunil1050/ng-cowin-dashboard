@@ -1,0 +1,24 @@
+.district-conatiner {
+    /* flex: 1 0 21%; */
+    background-color: white;
+    flex-basis: 25%;
+}
+.district-tab {
+  display: flex;
+  flex-direction: row;
+  margin: 8px 0px;
+  color: #94a3b8;
+}
+.district__covid-cases {
+  margin: 0px 10px 0px 0px;
+  font-family: Roboto;
+  font-size: 18px;
+  font-weight: 500;
+}
+.district__name {
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 500;
+  align-self: center;
+  margin: 0;
+}

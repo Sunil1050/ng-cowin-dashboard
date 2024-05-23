@@ -6,10 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./about.component.css']
 })
 export class AboutComponent implements OnInit {
+  iconToggle: boolean = false;
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  toggleIcon() {
+    this.iconToggle = !this.iconToggle
   }
 
 }

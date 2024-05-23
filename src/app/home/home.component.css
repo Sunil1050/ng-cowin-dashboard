@@ -44,7 +44,7 @@
   /* position: relative;
   top: 140px; */
 }
-.home__state-table-container {
+.home__table-container {
   /* position: relative;
   top: 200px; */
   width: 80%;
@@ -55,13 +55,14 @@ table {
   width: 100%;
 }
 
-.home__state-table {
-  border-radius: 8px;
+.mat-table {
+  border-radius: 8px !important;
   border: 1.5px solid #475569;
-  background-color: #1e1e30;
+  /* background-color: #1e1e30; */
+  background: #2f2f43;
 }
 
-.home__state-table-header {
+.home__table-header-cols {
   border: 1.5px solid #475569;
 }
 
@@ -71,7 +72,9 @@ th.mat-header-cell {
   font-size: 16px;
   font-weight: 500;
 }
-
+td {
+  cursor: pointer;
+}
 .home__td-state {
   color: #f8fafc;
 }

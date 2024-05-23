@@ -7,12 +7,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms'; // Import ReactiveFormsModule
+import { NgApexchartsModule } from "ng-apexcharts";
 
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import {MatIconModule} from '@angular/material/icon';
-import {MatTableModule} from '@angular/material/table';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTableModule } from '@angular/material/table';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSortModule } from '@angular/material/sort';
 
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
@@ -20,6 +22,11 @@ import { AboutComponent } from './about/about.component';
 import { CaseStatsComponent } from './home/case-stats/case-stats.component';
 import { FooterComponent } from './footer/footer.component';
 import { LoaderComponent } from './loader/loader.component';
+import { StateDetailComponent } from './home/state-detail/state-detail.component';
+import { DistrictTabComponent } from './home/state-detail/district-tab/district-tab.component';
+import { ChartComponent } from './charts/chart/chart.component';
+import { BarChartComponent } from './home/state-detail/bar-chart/bar-chart.component';
+import { SpreadTrendsComponent } from './home/state-detail/spread-trends/spread-trends.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,11 +36,17 @@ import { LoaderComponent } from './loader/loader.component';
     CaseStatsComponent,
     FooterComponent,
     LoaderComponent,
+    StateDetailComponent,
+    DistrictTabComponent,
+    ChartComponent,
+    BarChartComponent,
+    SpreadTrendsComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    NgApexchartsModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
@@ -41,9 +54,10 @@ import { LoaderComponent } from './loader/loader.component';
     MatIconModule,
     MatTableModule,
     MatAutocompleteModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatSortModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
