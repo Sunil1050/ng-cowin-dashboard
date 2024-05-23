@@ -24,7 +24,6 @@ import { FooterComponent } from './footer/footer.component';
 import { LoaderComponent } from './loader/loader.component';
 import { StateDetailComponent } from './home/state-detail/state-detail.component';
 import { DistrictTabComponent } from './home/state-detail/district-tab/district-tab.component';
-import { ChartComponent } from './charts/chart/chart.component';
 import { BarChartComponent } from './home/state-detail/bar-chart/bar-chart.component';
 import { SpreadTrendsComponent } from './home/state-detail/spread-trends/spread-trends.component';
 @NgModule({
@@ -38,7 +37,6 @@ import { SpreadTrendsComponent } from './home/state-detail/spread-trends/spread-
     LoaderComponent,
     StateDetailComponent,
     DistrictTabComponent,
-    ChartComponent,
     BarChartComponent,
     SpreadTrendsComponent,
   ],

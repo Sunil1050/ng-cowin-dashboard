@@ -16,6 +16,8 @@ import { MatTableDataSource } from '@angular/material/table';
 
 import { HomeHttpService } from './home-http.service';
 import { Router } from '@angular/router';
+import { Covid19StateWiseData } from '../models/covid-state-wise-data.model';
+import { CovidTabStat } from '../models/covid-tab-stat.model';
 
 interface State {
   stateName: string;
@@ -31,8 +33,8 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('searchContainer', { static: false }) searchContainer!: ElementRef;
   @ViewChild(MatSort) sort: MatSort;
 
-  covid19HomePageData: any = {};
-  covid19CategoriesTotalStats: any = {};
+  covid19HomePageData: Covid19StateWiseData = {};
+  covid19CategoriesTotalStats: CovidTabStat[] = [];
   dataSub: Subscription = new Subscription();
   displayedColumns: string[] = [
     'state',
@@ -43,7 +45,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
     'population',
   ];
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
-  searchControl = new FormControl();
+  searchControl: FormControl = new FormControl();
   states: State[] = [];
   filteredStates!: Observable<State[]>;
   panelWidth!: string;

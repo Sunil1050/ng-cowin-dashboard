@@ -42,20 +42,20 @@ export class StateDetailComponent implements OnInit {
       this.httpService.getCovid19StateWiseData(),
     ])
       .pipe(
-        map(([params, covidData]) => {
-          return { params, covidData };
+        map(([params, Covid19StateWiseData]) => {
+          return { params, Covid19StateWiseData };
         }),
-        switchMap(({ params, covidData }) => {
+        switchMap(({ params, Covid19StateWiseData }) => {
           return this.httpService
             .getCovid19TimelinesData(params['stateCode'])
             .pipe(
               map((timelineData) => {
-                return { params, covidData, timelineData };
+                return { params, Covid19StateWiseData, timelineData };
               })
             );
         })
       )
-      .subscribe(({ params, covidData, timelineData }) => {
+      .subscribe(({ params, Covid19StateWiseData, timelineData }) => {
         this.isLoading = false;
         this.stateCode = params['stateCode'];
         this.covid19TimelinesData = timelineData;
@@ -66,9 +66,9 @@ export class StateDetailComponent implements OnInit {
 
         this.stateName = this.getStateName(this.stateCode);
         this.covid19CategoriesStateTotalStats =
-          this.homeHttpService.getTotalStatsOfState(covidData, this.stateCode);
+          this.homeHttpService.getTotalStatsOfState(Covid19StateWiseData, this.stateCode);
 
-        const stateData = covidData[this.stateCode];
+        const stateData = Covid19StateWiseData[this.stateCode];
         if (stateData) {
           const lastUpdated = stateData.meta?.last_updated;
           if (lastUpdated) {
@@ -215,7 +215,7 @@ export class StateDetailComponent implements OnInit {
         return '#6C757D';
       case 'recovered':
         return '#28A745';
-      case 'tested':
+      case 'active':
         return '#007BFF';
       default:
         return '#fff';

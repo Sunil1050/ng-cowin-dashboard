@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { CovidCategory } from '../home-http.service';
+import { CovidTabStat } from 'src/app/models/covid-tab-stat.model';
 
 @Component({
   selector: 'app-case-stats',
@@ -7,7 +7,7 @@ import { CovidCategory } from '../home-http.service';
   styleUrls: ['./case-stats.component.css']
 })
 export class CaseStatsComponent implements OnInit {
-  @Input() covidCaseStat: CovidCategory;
+  @Input() covidCaseStat: CovidTabStat;
   @Output() covidCaseChanged = new EventEmitter<string>();
 
   constructor() { }
