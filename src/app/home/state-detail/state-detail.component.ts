@@ -7,6 +7,7 @@ import { HttpService } from 'src/app/http.service';
 import { HomeHttpService } from '../home-http.service';
 import { CovidDistricts } from 'src/app/models/covid-districts.model';
 import { ChartPlotData } from 'src/app/models/chart-data.model';
+import { CovidTabStat } from 'src/app/models/covid-tab-stat.model';
 
 @Component({
   selector: 'app-state-detail',
@@ -18,15 +19,16 @@ export class StateDetailComponent implements OnInit {
   stateName: string;
   lastUpdated: string;
   totalTested: number = 0;
+  population: number = 0;
   arrowIconToggle: boolean = false;
-  covid19CategoriesStateTotalStats: any = {};
-  topDistrictsStats: any = [];
+  covid19CategoriesStateTotalStats: CovidTabStat[] = [];
+  topDistrictsStats: any[] = [];
   activeTab: string = 'confirmed'; // confirmed | deceased | recovered | active
   activeTabDistrictStats: any[] = [];
   activeTabBarChartData: ChartPlotData[] = [];
   isLoading: boolean = false;
   covid19TimelinesData: any = {};
-  covid19SpreadTrendsData: any[] = []; // {status: 'confirmed', data: [{}]}
+  covid19SpreadTrendsData: any[] = [];
   districtSortChange = new Subject<string>();
 
   constructor(
@@ -66,7 +68,10 @@ export class StateDetailComponent implements OnInit {
 
         this.stateName = this.getStateName(this.stateCode);
         this.covid19CategoriesStateTotalStats =
-          this.homeHttpService.getTotalStatsOfState(Covid19StateWiseData, this.stateCode);
+          this.homeHttpService.getTotalStatsOfState(
+            Covid19StateWiseData,
+            this.stateCode
+          );
 
         const stateData = Covid19StateWiseData[this.stateCode];
         if (stateData) {
@@ -75,6 +80,7 @@ export class StateDetailComponent implements OnInit {
             this.lastUpdated = this.formatLastUpdate(lastUpdated);
           }
           this.totalTested = stateData?.total?.tested as number;
+          this.population = stateData?.meta?.population as number;
           this.topDistrictsStats = Object.keys(
             stateData?.districts as CovidDistricts
           ).map((disctrict) => {
@@ -173,26 +179,46 @@ export class StateDetailComponent implements OnInit {
       .slice(0, 10);
   }
 
-  private buildSpreadTrends(): ChartPlotData[] {
-    const result: ChartPlotData[] = [];
-    let casesCategories = ['confirmed', 'tested', 'recovered', 'deceased'];
-    Object.keys(this.covid19TimelinesData[this.stateCode]?.dates).forEach(
-      (date) => {
-        casesCategories.forEach((category: string) => {
-          result.push({
-            status: category,
-            xAxisLabel: date,
-            yAxisLabel: this.covid19TimelinesData[this.stateCode]?.dates?.[date]
-              ?.total?.[category] as number,
-            color: this.getColorForActiveTab(category),
-          });
-        });
-      }
-    );
-    return result;
+  private buildSpreadTrends() {
+    let casesCategories = ['confirmed', 'active', 'recovered', 'deceased'];
+    return casesCategories.map((category) => {
+      return {
+        status: category,
+        color: this.getColorForActiveTab(category),
+        bgColor: this.getBgColorForActiveTab(category),
+        data: this.buildChartDataForSpreadTrends(category),
+      };
+    });
   }
 
-  private getColorForActiveTab(activeTab: string) {
+  private buildChartDataForSpreadTrends(category: string) {
+    return Object.keys(this.covid19TimelinesData[this.stateCode]?.dates).map(
+      (date: string) => {
+        const obj = {
+          xAxisLabel: date,
+          yAxisLabel: 0,
+        };
+        if (category === 'active') {
+          const {
+            confirmed = 0,
+            recovered = 0,
+            deceased = 0,
+          } = this.covid19TimelinesData[this.stateCode]?.dates?.[date]?.total;
+          obj['yAxisLabel'] = this.homeHttpService.getActiveCases(
+            confirmed,
+            recovered,
+            deceased
+          );
+        } else {
+          obj['yAxisLabel'] = this.covid19TimelinesData[this.stateCode]
+            ?.dates?.[date]?.total?.[category] as number;
+        }
+        return obj;
+      }
+    );
+  }
+
+  getColorForActiveTab(activeTab: string) {
     switch (activeTab) {
       case 'confirmed':
         return '#FF073A';
@@ -207,18 +233,18 @@ export class StateDetailComponent implements OnInit {
     }
   }
 
-  getTopDistrictsBadgeColor() {
-    switch (this.activeTab) {
+  private getBgColorForActiveTab(activeTab: string) {
+    switch (activeTab) {
       case 'confirmed':
-        return '#FF073A';
-      case 'deceased':
-        return '#6C757D';
-      case 'recovered':
-        return '#28A745';
+        return '#331427';
       case 'active':
-        return '#007BFF';
+        return '#132240';
+      case 'recovered':
+        return '#182829';
+      case 'deceased':
+        return '#1C1C2B';
       default:
-        return '#fff';
+        return;
     }
   }
 
@@ -226,5 +252,86 @@ export class StateDetailComponent implements OnInit {
     this.arrowIconToggle = !this.arrowIconToggle;
     const direction = this.arrowIconToggle ? 'asc' : 'desc';
     this.districtSortChange.next(direction);
+  }
+
+  getMapImage(stateCode: string) {
+    switch(stateCode) {
+      case 'AN':
+        return "https://res.cloudinary.com/djzj8lr4d/image/upload/v1716566618/Group_7362andaman_k2nlgc.png"
+      case 'AP':
+        return "https://res.cloudinary.com/djzj8lr4d/image/upload/v1716567194/Group_7354andhra_pradesh_tcidw9.png"
+      case 'AR':
+        return "https://res.cloudinary.com/djzj8lr4d/image/upload/v1716566618/Group_7340arunachal_pradesh_t6e6v2.png"
+      case 'AS':
+        return "https://res.cloudinary.com/djzj8lr4d/image/upload/v1716566617/Group_7341assam_m51smg.png"
+      case 'BR':
+        return "https://res.cloudinary.com/djzj8lr4d/image/upload/v1716566620/Group_7335Bihar_iats8c.png"
+      case 'CH':
+        return "https://res.cloudinary.com/djzj8lr4d/image/upload/v1716566618/Group_7361chandigarh_fabayl.png"
+      case 'CT':
+        return "https://res.cloudinary.com/djzj8lr4d/image/upload/v1716566621/Group_7353chattisgarh_wxjkjh.png"
+      case 'DL':
+        return "https://res.cloudinary.com/djzj8lr4d/image/upload/v1716566618/Group_7358delhi_kioyn8.png"
+      case 'DN':
+        return "https://res.cloudinary.com/djzj8lr4d/image/upload/v1716566617/Group_7357dama_and_diu_rqhr1c.png"
+      case 'GA':
+        return "https://res.cloudinary.com/djzj8lr4d/image/upload/v1716566617/Group_7349goa_rkuvfd.png"
+      case 'GJ':
+        return "https://res.cloudinary.com/djzj8lr4d/image/upload/v1716566619/Group_7337Gujurat_kvwl0j.png"
+      case 'HP':
+        return "https://res.cloudinary.com/djzj8lr4d/image/upload/v1716566622/Group_7364himachal_pradesh_rucmlj.png"
+      case 'HR':
+        return "https://res.cloudinary.com/djzj8lr4d/image/upload/v1716566621/Group_7332Haryana_kwlhcs.png"
+      case 'JH':
+        return "https://res.cloudinary.com/djzj8lr4d/image/upload/v1716566619/Group_7342jharkhand_dbulxk.png"
+      case 'JK':
+        return "https://res.cloudinary.com/djzj8lr4d/image/upload/v1716566623/Group_7328JK_ehhdja.png"
+      case 'KA':
+        return "https://res.cloudinary.com/djzj8lr4d/image/upload/v1716566620/Group_7339karnataka_jpsx90.png"
+      case 'KL':
+        return "https://res.cloudinary.com/djzj8lr4d/image/upload/v1716566620/Group_7355kerala_dcbzi5.png"
+      case 'LA':
+        return "https://res.cloudinary.com/djzj8lr4d/image/upload/v1716566617/Group_7363ladakh_edyqas.png"
+      case 'LD':
+        return "https://res.cloudinary.com/djzj8lr4d/image/upload/v1716566617/Group_7359lakshwadeep_bqwqyx.png"
+      case 'MH':
+        return "https://res.cloudinary.com/djzj8lr4d/image/upload/v1716566620/Group_7350maharastra_tf9o3m.png"
+      case 'ML':
+        return "https://res.cloudinary.com/djzj8lr4d/image/upload/v1716566617/Group_7344meghalaya_mlir1k.png"
+      case 'MN':
+        return "https://res.cloudinary.com/djzj8lr4d/image/upload/v1716566622/Group_7346manipur_q5oa90.png"
+      case 'MP':
+        return "https://res.cloudinary.com/djzj8lr4d/image/upload/v1716566620/Group_7336madya_pradesh_kmxtae.png"
+      case "MZ":
+        return "https://res.cloudinary.com/djzj8lr4d/image/upload/v1716566622/Group_7347mizoram_ivrflc.png"
+      case 'NL':
+        return "https://res.cloudinary.com/djzj8lr4d/image/upload/v1716566622/Group_7345nagaland_fsbza2.png"
+      case 'OR':
+        return "https://res.cloudinary.com/djzj8lr4d/image/upload/v1716566620/Group_7348orrisa_ntn7gc.png"
+      case 'PB':
+        return "https://res.cloudinary.com/djzj8lr4d/image/upload/v1716566622/Group_7330punjab_iruwsz.png"
+      case 'PY':
+        return "https://res.cloudinary.com/djzj8lr4d/image/upload/v1716566618/Group_7360puducherry_p8l4yi.png"
+      case 'RJ':
+        return "https://res.cloudinary.com/djzj8lr4d/image/upload/v1716566621/Group_7333Rajasthan_x2do8x.png"
+      case 'SK':
+        return "https://res.cloudinary.com/djzj8lr4d/image/upload/v1716566618/Group_7338sikkim_zbscyt.png"
+      case 'TG':
+        return "https://res.cloudinary.com/djzj8lr4d/image/upload/v1716566621/Group_7351telengana_blan34.png"
+      case 'TN':
+        return "https://res.cloudinary.com/djzj8lr4d/image/upload/v1716566619/Group_7356tamil_nadu_j9a1r5.png"
+      case 'TR':
+        return "https://res.cloudinary.com/djzj8lr4d/image/upload/v1716566622/Group_7352tripura_wwaddr.png"
+      case 'TT':
+        return "https://res.cloudinary.com/djzj8lr4d/image/upload/v1716566619/Group_7326india_jt8sln.png"
+      case "UP":
+        return "https://res.cloudinary.com/djzj8lr4d/image/upload/v1716566621/Group_7334uttar_pradesh_eycmed.png"
+      case 'UT':
+        return "https://res.cloudinary.com/djzj8lr4d/image/upload/v1716566622/Group_7331uttarakhand_r2a4ok.png"
+      case 'WB':
+        return "https://res.cloudinary.com/djzj8lr4d/image/upload/v1716566619/Group_7343west_bengal_hprbmh.png"
+      default:
+        return "https://res.cloudinary.com/djzj8lr4d/image/upload/v1716566619/Group_7326india_jt8sln.png"
+    }
   }
 }

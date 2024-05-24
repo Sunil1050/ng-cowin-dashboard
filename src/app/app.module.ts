@@ -25,7 +25,8 @@ import { LoaderComponent } from './loader/loader.component';
 import { StateDetailComponent } from './home/state-detail/state-detail.component';
 import { DistrictTabComponent } from './home/state-detail/district-tab/district-tab.component';
 import { BarChartComponent } from './home/state-detail/bar-chart/bar-chart.component';
-import { SpreadTrendsComponent } from './home/state-detail/spread-trends/spread-trends.component';
+import { LineChartComponent } from './home/state-detail/line-chart/line-chart.component';
+import { FaqComponent } from './about/faq/faq.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,7 +39,8 @@ import { SpreadTrendsComponent } from './home/state-detail/spread-trends/spread-
     StateDetailComponent,
     DistrictTabComponent,
     BarChartComponent,
-    SpreadTrendsComponent,
+    LineChartComponent,
+    FaqComponent,
   ],
   imports: [
     BrowserModule,

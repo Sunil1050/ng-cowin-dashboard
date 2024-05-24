@@ -2,7 +2,7 @@ export class MetaMetric {
   constructor(
     public date?: string,
     public last_updated?: string,
-    public population?: string,
+    public population?: number,
     public tested?: Tested,
     public vaccinated?: Vaccinated
   ) {}

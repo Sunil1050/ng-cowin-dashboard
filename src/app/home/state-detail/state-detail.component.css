@@ -42,27 +42,51 @@
   right: 53px;
   bottom: 10px;
 }
-.state__covid-cases-stats {
+.state__map-container {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  padding-top: 30px;
+  margin-bottom: 48px;
 }
-.state__top-district-stats {
-  padding-top: 30px;
+.state__map {
+  height: 468px;
+  width: 421px;
+}
+.map__report-container {
+  align-self: center;
+  margin-left: 40px;
+}
+.map__report-title {
+  font-family: Roboto;
+  font-size: 20px;
+  font-weight: 500;
+  color: #94a3b8;
+  margin: 0;
+}
+.map__report-header {
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 500;
+  color: #f1f5f9;
+}
+.map__report-count {
+  font-family: Roboto;
+  font-size: 24px;
+  font-weight: 500;
+  color: #94a3b8;
+}
+.map__report-status {
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 400;
+  color: #cbd5e1;
+  margin: 0;
 }
 .state__top-districts-badge {
   color: #ff073a;
   font-family: Roboto;
   font-size: 32px;
   font-weight: 500;
-}
-/* .state__districts-container {
-  display: flex;
-  flex-wrap: wrap;
-} */
-.state__bar-chart {
-  padding: 50px 0px;
 }
 
 .arrow-icon-button {
@@ -72,4 +96,11 @@
 .arrow-icon {
   font-size: 26px;
   margin-bottom: 14px;
+}
+.state__spread-trends-badge {
+  font-family: Roboto;
+  font-size: 32px;
+  font-weight: 500;
+  color: #cbd5e1;
+  padding: 30px 0px;
 }

@@ -2,15 +2,14 @@
   font-family: Roboto;
   font-size: 16px;
   font-weight: 500;
-  min-width: 180px;
   height: 160px;
+  max-width: 225px;
   border-radius: 12px;
-  /* background-color: #331427; */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 0 20px;
+  margin: 15px 8px;
 }
 
 .case-stat__status {

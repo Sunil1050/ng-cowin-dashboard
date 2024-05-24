@@ -1,47 +1,78 @@
 <div class="state-container" *ngIf="!isLoading; else loader">
     <div class="container">
+        <!-- State Info Container -->
         <div class="state__info-stats">
             <div>
                 <button type="button" class="state__button-badge">{{ stateName }}</button>
                 <p class="state__update-status">Last update on {{ lastUpdated }}</p>
             </div>
-            <div>
+            <div class="align-self-center text-right">
                 <p class="state__tested">Tested</p>
                 <h4 class="state__tested-count">{{ totalTested }}</h4>
             </div>
         </div>
+
         <!-- Covid cases stats here -->
-        <div class="state__covid-cases-stats">
-            <app-case-stats *ngFor="let covidCaseStat of covid19CategoriesStateTotalStats"
-                [covidCaseStat]="covidCaseStat" (covidCaseChanged)="getActiveTab($event)">
-            </app-case-stats>
-        </div>
-        <!-- To districts stats here -->
-        <div class="state__top-district-stats">
-            <div class="d-flex">
-                <h2 class="state__top-districts-badge" [ngStyle]="{'color': getTopDistrictsBadgeColor()}">
-                    Top Districts
-                </h2>
-                <button class="arrow-icon-button" [ngStyle]="{'color': getTopDistrictsBadgeColor()}" (click)="toggleArrowIcon()">
-                    <mat-icon class="arrow-icon">{{ arrowIconToggle ? 'arrow_upward' : 'arrow_downward' }}</mat-icon>
-                </button>
-            </div>
-
-            <div class="container">
-                <div class="row">
-                    <ng-container *ngFor="let districtStat of activeTabDistrictStats">
-                        <div class="col-6 col-md-4 col-lg-3">
-                            <app-district-tab [districtStat]="districtStat" [activeTab]="activeTab"></app-district-tab>
-                        </div>
-                    </ng-container>
+        <div class="row pt-5 pb-5">
+            <ng-container *ngFor="let covidCaseStat of covid19CategoriesStateTotalStats">
+                <div class="col-6 col-md-3">
+                    <app-case-stats [covidCaseStat]="covidCaseStat" [activeTab]="activeTab"
+                        (covidCaseChanged)="getActiveTab($event)"></app-case-stats>
                 </div>
-            </div>
-
+            </ng-container>
         </div>
 
+        <!-- India-State Map Container -->
+        <div class="state__map-container">
+            <img [src]="getMapImage(stateCode)" [alt]="stateCode" class="state__map" />
+            <div class="map__report-container">
+                <h2 class="map__report-title">NCP REPORT</h2>
+                <div class="mt-3 mb-3">
+                    <h5 class="map__report-header">Population</h5>
+                    <p class="map__report-count">{{population}}</p>
+                </div>
+                <div class="mt-3 mb-3">
+                    <h5 class="map__report-header">Tested</h5>
+                    <p class="map__report-count">{{totalTested}}</p>
+                </div>
+                <p class="map__report-status">(As of March per source)</p>
+            </div>
+        </div>
+
+
+        <!-- To districts stats here -->
+        <div class="d-flex">
+            <h2 class="state__top-districts-badge" [ngStyle]="{'color': getColorForActiveTab(activeTab)}">
+                Top Districts
+            </h2>
+            <button class="arrow-icon-button" [ngStyle]="{'color': getColorForActiveTab(activeTab)}"
+                (click)="toggleArrowIcon()">
+                <mat-icon class="arrow-icon">{{ arrowIconToggle ? 'arrow_upward' : 'arrow_downward' }}</mat-icon>
+            </button>
+        </div>
+        <div class="row">
+            <ng-container *ngFor="let districtStat of activeTabDistrictStats">
+                <div class="col-6 col-md-4 col-lg-3">
+                    <app-district-tab [districtStat]="districtStat" [activeTab]="activeTab"></app-district-tab>
+                </div>
+            </ng-container>
+        </div>
+
+        <!-- Bar chart data here -->
         <div class="state__bar-chart">
             <app-bar-chart [barChartData]="activeTabBarChartData"></app-bar-chart>
         </div>
+
+        <!-- Daily Spread Trends Charts -->
+        <div>
+            <h2 class="state__spread-trends-badge">Daily Spread Trends</h2>
+            <!-- Line Chart here -->
+            <app-line-chart *ngFor="let spreadTrendChartData of covid19SpreadTrendsData"
+                [spreadTrendChartData]="spreadTrendChartData"></app-line-chart>
+        </div>
+
+        <!-- Footer -->
+        <app-footer></app-footer>
     </div>
 </div>
 

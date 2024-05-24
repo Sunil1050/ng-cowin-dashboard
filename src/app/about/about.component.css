@@ -1,13 +1,25 @@
 .about-container {
-  height: 100vh;
+  min-height: 100vh;
   background-color: #161625;
-  padding-top: 80px;
+  padding-top: 90px;
 }
-.icon-button {
-  background-color: transparent;
-  border: none;
-  color: #fff;
+.about__heading {
+  font-family: Roboto;
+  font-size: 40px;
+  font-weight: 500;
+  color: #f8fafc;
+  margin-bottom: 18px;
 }
-.mat-icon {
-  font-size: 18px;
+.about__update {
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 400;
+  color: #94a3b8;
+  margin-bottom: 24px;
+}
+.about__content {
+  font-family: Roboto;
+  font-size: 22px;
+  font-weight: 500;
+  color: #e2e8f0;
 }

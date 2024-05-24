@@ -5,6 +5,7 @@ export class CovidTabStat {
         public cases: number,
         public color: string,
         public bgColor: string,
+        public stateDetail?: boolean
     ) {}
 }
 

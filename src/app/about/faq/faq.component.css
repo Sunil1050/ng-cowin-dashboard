@@ -1,0 +1,17 @@
+.faq-container {
+  margin-bottom: 22px;
+}
+.faq__question {
+  font-family: Roboto;
+  font-size: 16px;
+  color: #94a3b8;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+.faq__answer {
+  font-family: Roboto;
+  font-size: 14px;
+  line-height: 24px;
+  text-align: justify;
+  color: #007bff;
+}

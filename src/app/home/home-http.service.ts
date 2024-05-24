@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from '../http.service';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { Covid19StateWiseData } from '../models/covid-state-wise-data.model';
 import { CovidTabStat, CovidStatus } from '../models/covid-tab-stat.model';
 
@@ -31,6 +31,7 @@ export class HomeHttpService {
       cases: 0,
       color: '#FF073A',
       bgColor: '#331427',
+      stateDetail: false,
     },
     {
       imageUrl:
@@ -39,6 +40,7 @@ export class HomeHttpService {
       cases: 0,
       color: '#007BFF',
       bgColor: '#132240',
+      stateDetail: false,
     },
     {
       imageUrl:
@@ -47,6 +49,7 @@ export class HomeHttpService {
       cases: 0,
       color: '#28A745',
       bgColor: '#182829',
+      stateDetail: false,
     },
     {
       imageUrl:
@@ -55,6 +58,7 @@ export class HomeHttpService {
       cases: 0,
       color: '#6C757D',
       bgColor: '#212230',
+      stateDetail: false,
     },
   ];
 
@@ -62,7 +66,7 @@ export class HomeHttpService {
     this.getHttpData();
   }
 
-  getHttpData()  {
+  getHttpData() {
     this.httpService.getCovid19StateWiseData().subscribe((response: any) => {
       this.covid19StateWise = response;
       this.covid19StateWiseChanged.next(this.covid19StateWise);
@@ -109,7 +113,10 @@ export class HomeHttpService {
     return this.covid19StatsCategories;
   }
 
-  getTotalStatsOfState(response: Covid19StateWiseData, stateCode: string): CovidTabStat[] {
+  getTotalStatsOfState(
+    response: Covid19StateWiseData,
+    stateCode: string
+  ): CovidTabStat[] {
     const covidCasesTotalData: CovidCaseData = {
       Confirmed: 0,
       Deceased: 0,
@@ -118,11 +125,7 @@ export class HomeHttpService {
     };
     const stateData = response[stateCode]['total'];
     if (stateData) {
-      const {
-        confirmed = 0,
-        deceased = 0,
-        recovered = 0,
-      } = stateData;
+      const { confirmed = 0, deceased = 0, recovered = 0 } = stateData;
       const activeCases = this.getActiveCases(confirmed, recovered, deceased);
 
       covidCasesTotalData.Confirmed += confirmed;
@@ -136,9 +139,10 @@ export class HomeHttpService {
           return {
             ...category,
             cases: covidCasesTotalData[category.status as CovidStatus],
+            stateDetail: true,
           };
         }
-        return category;
+        return { ...category, stateDetail: true };
       }
     );
     return this.covid19StatsCategories;

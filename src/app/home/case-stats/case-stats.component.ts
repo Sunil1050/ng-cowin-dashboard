@@ -8,6 +8,7 @@ import { CovidTabStat } from 'src/app/models/covid-tab-stat.model';
 })
 export class CaseStatsComponent implements OnInit {
   @Input() covidCaseStat: CovidTabStat;
+  @Input() activeTab?: string;
   @Output() covidCaseChanged = new EventEmitter<string>();
 
   constructor() { }
@@ -18,6 +19,16 @@ export class CaseStatsComponent implements OnInit {
   onClickCovidCase() {
     const status = this.covidCaseStat?.status.toLowerCase()
     this.covidCaseChanged.emit(status);
+  }
+
+  renderBackgroundColor() {
+    if (this.covidCaseStat?.stateDetail) {
+      if (this.activeTab === this.covidCaseStat?.status.toLowerCase()) {
+        return this.covidCaseStat?.bgColor;
+      }
+      return;
+    }
+    return this.covidCaseStat?.bgColor
   }
 
 }

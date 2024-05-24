@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpService } from '../http.service';
 
 @Component({
   selector: 'app-about',
@@ -6,15 +7,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./about.component.css']
 })
 export class AboutComponent implements OnInit {
-  iconToggle: boolean = false;
-
-  constructor() { }
+  faqsList: any[] = [];
+  isLoading: boolean = false;
+  constructor(private httpService: HttpService) { }
 
   ngOnInit(): void {
-  }
-
-  toggleIcon() {
-    this.iconToggle = !this.iconToggle
+    this.isLoading = true;
+    this.httpService.getFaqs().subscribe((response: any) => {
+      this.isLoading = false;
+      this.faqsList = response?.faq
+    })
   }
 
 }

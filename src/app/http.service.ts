@@ -17,4 +17,8 @@ export class HttpService {
   getCovid19TimelinesData(stateCode: string): Observable<any> {
     return this.http.get(`https://apis.ccbp.in/covid19-timelines-data/${stateCode}`)
   }
+
+  getFaqs() {
+    return this.http.get('https://apis.ccbp.in/covid19-faqs');
+  }
 }

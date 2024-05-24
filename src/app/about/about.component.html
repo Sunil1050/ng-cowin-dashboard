@@ -1,5 +1,19 @@
-<div class="about-container">
-    <button class="icon-button" (click)="toggleIcon()">
-        <mat-icon class="arrow-icon">{{ iconToggle ? 'arrow_downward' :  'arrow_upward'}}</mat-icon>
-    </button>
+<div class="about-container" *ngIf="!isLoading; else loader">
+    <div class="container">
+        <h2 class="about__heading">About</h2>
+        <p class="about__update">Last update on march 28th 2021.</p>
+        <h4 class="about__content">COVID-19 vaccines be ready for distribution</h4>
+
+        <!-- List of FAQ's -->
+        <div class="pt-4">
+            <app-faq *ngFor="let faq of faqsList" [faq]="faq"></app-faq>
+        </div>
+
+        <!-- Footer -->
+        <app-footer></app-footer>
+    </div>
 </div>
+
+<ng-template #loader>
+    <app-loader></app-loader>
+</ng-template>
