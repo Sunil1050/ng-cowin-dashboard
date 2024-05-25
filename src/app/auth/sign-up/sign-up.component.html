@@ -1,0 +1,57 @@
+<form [formGroup]="signupForm">
+      <div class="grid">
+            <div class="col-12">
+                  <div class="card flex justify-content-center">
+                        <p-card header="Sign up" [style]="{ width: '360px' }">
+                              <!-- <ng-template pTemplate="header">
+                 </ng-template> -->
+                              <ng-template pTemplate="content">
+                                    <div>
+                                          <label for="username">Name</label>
+                                          <div>
+                                                <input                   class="w-100"                   pInputText    
+                                                  formControlName="displayName"                   type="text"          
+                                            placeholder="Name"                 />
+                                              </div>
+                                        </div>
+                                    <div class="mt-3">
+                                          <label for="username">Email</label>
+                                          <div>
+                                                <input                   class="w-100"                   pInputText    
+                                                  formControlName="email"                   type="text"                
+                                      placeholder="Email"                 />
+                                              </div>
+                                        </div>
+                                    <div class="mt-3">
+                                          <label for="password">Password</label>
+                                          <div>
+                                                <input                   class="w-100"                   pInputText    
+                                                  type="password"                   formControlName="password"          
+                                            placeholder="Password"                 />
+                                              </div>
+                                        </div>
+                                    <div class="mt-3">
+                                          <label for="password">Confirm Password</label>
+                                          <div>
+                                                <input                   class="w-100"                   pInputText    
+                                                  type="password"                   formControlName="confirmPassword"  
+                                                    placeholder="Confirm Password"                 />
+                                              </div>
+                                        </div>
+                                  </ng-template>
+                              <ng-template pTemplate="footer">
+                                    <div class="flex justify-content-center align-items-center">
+                                          <button                 pButton                 pRipple                
+                                label="Sign up"                 (click)="signup()"              ></button>
+                                        </div>
+                                    <div class="mt-2 flex justify-content-center align-items-center">
+                                          <p-button                 label="Already have an account? Click Here"        
+                                        styleClass="p-button-link"                 routerLink="/login"            
+                                 ></p-button>
+                                        </div>
+                                  </ng-template>
+                            </p-card>
+                      </div>
+                </div>
+          </div>
+</form>
