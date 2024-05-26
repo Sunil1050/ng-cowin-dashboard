@@ -1,0 +1,51 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #161625;
+}
+
+.auth-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 40px; /* Increased padding for better spacing */
+  background-color: #F8FAFC;
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adding a subtle shadow */
+}
+
+.toggle-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 20px; /* Adding some bottom margin for spacing between fields */
+}
+
+/* For the background color */
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-background {
+  background-color: #6C757D; /* Slightly lighter shade */
+}
+
+/* For the text color */
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-label,
+::ng-deep .mat-form-field-appearance-fill .mat-input-element {
+  color: #161625; /* White color */
+}
+::ng-deep .mat-form-field.mat-focused .mat-form-field-wrapper {
+  outline-color: #161625 !important; /* Set custom color */
+}
+.form-button {
+  width: 100%;
+  font-weight: bold;
+}
+.snack-bar-warning {
+  background-color: red; /* Warning yellow background */
+  color: #000; /* Black text color */
+  font-weight: bold;
+}
