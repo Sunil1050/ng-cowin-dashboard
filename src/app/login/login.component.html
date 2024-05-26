@@ -1,0 +1,87 @@
+<div class="main" *ngIf="!isLoading; else loader">
+  <div class="auth-container">
+    <div class="toggle-buttons">
+      <button class="toggle-button" mat-button [color]="currentForm === 'login' ? 'primary' : ''"
+        (click)="toggleForm('login')">
+        Login
+      </button>
+      <button mat-button [color]="currentForm === 'signup' ? 'primary' : ''" (click)="toggleForm('signup')">
+        Sign Up
+      </button>
+    </div>
+
+    <div *ngIf="currentForm === 'login'">
+      <form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm)">
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" ngModel name="email" required>
+          <mat-error *ngIf="loginForm.controls['email']?.invalid && loginForm.controls['email']?.touched">
+            Please enter a valid email.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Password</mat-label>
+          <input matInput [type]="hidePassword ? 'password' : 'text'" ngModel name="password" required>
+          <button type="button" mat-icon-button matSuffix (click)="togglePasswordVisibility('password')"
+            [attr.aria-label]="hidePassword ? 'Show password' : 'Hide password'" [attr.aria-pressed]="hidePassword">
+            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="loginForm.controls['password']?.invalid && loginForm.controls['password']?.touched">
+            Please enter your password.
+          </mat-error>
+        </mat-form-field>
+
+        <button mat-raised-button class="form-button" color="primary" type="submit"
+          [disabled]="loginForm.invalid">Login</button>
+      </form>
+    </div>
+
+    <div *ngIf="currentForm === 'signup'">
+      <form #signupForm="ngForm" (ngSubmit)="onSignup(signupForm)">
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" ngModel name="email" required email #email="ngModel">
+          <mat-error #email email="ngModel" *ngIf="!email.valid && email.touched">
+            Please enter a valid email.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Password</mat-label>
+          <input matInput [type]="hidePassword ? 'password' : 'text'" ngModel name="password" required password
+            #password="ngModel">
+          <button mat-icon-button matSuffix type="button" (click)="togglePasswordVisibility('password')"
+            [attr.aria-label]="hidePassword ? 'Show password' : 'Hide password'" [attr.aria-pressed]="hidePassword">
+            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="!password.valid && password.touched">
+            Please enter your password.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Confirm Password</mat-label>
+          <input matInput [type]="hideConfirmPassword ? 'password' : 'text'" ngModel name="confirmPassword" required
+            confirmPassword #confirmPassword="ngModel">
+          <button mat-icon-button matSuffix type="button" (click)="togglePasswordVisibility('confirmPassword')"
+            [attr.aria-label]="hideConfirmPassword ? 'Show confirm password' : 'Hide confirm password'"
+            [attr.aria-pressed]="hideConfirmPassword">
+            <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+          <mat-error *ngIf="!confirmPassword.valid && confirmPassword.touched">
+            Please confirm your password.
+          </mat-error>
+        </mat-form-field>
+
+        <button mat-raised-button class="form-button" color="primary" type="submit" [disabled]="signupForm.invalid">Sign
+          Up</button>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+<ng-template #loader>
+  <app-loader></app-loader>
+</ng-template>

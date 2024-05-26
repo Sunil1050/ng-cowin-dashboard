@@ -28,11 +28,25 @@
   font-family: Roboto;
   font-size: 14px;
   font-weight: 500;
-  margin: 0 12px;
+  margin: 0 10px;
   color: #94a3b8;
   cursor: pointer;
+  align-self: center;
 }
 
 .header-nav-item.active{
   color: #f8fafc;
+}
+.logout-button {
+  width: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px;
+}
+li .logout-button {
+  margin: 0 10px;
+}
+.logout-button:hover {
+  background-color: #94a3b8;
 }

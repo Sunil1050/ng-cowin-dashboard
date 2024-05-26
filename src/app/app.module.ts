@@ -14,6 +14,11 @@ import { MatTableModule } from '@angular/material/table';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSortModule } from '@angular/material/sort';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
@@ -26,6 +31,7 @@ import { DistrictTabComponent } from './home/state-detail/district-tab/district-
 import { BarChartComponent } from './home/state-detail/bar-chart/bar-chart.component';
 import { LineChartComponent } from './home/state-detail/line-chart/line-chart.component';
 import { FaqComponent } from './about/faq/faq.component';
+import { LoginComponent } from './login/login.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,6 +46,7 @@ import { FaqComponent } from './about/faq/faq.component';
     BarChartComponent,
     LineChartComponent,
     FaqComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,7 +61,12 @@ import { FaqComponent } from './about/faq/faq.component';
     MatTableModule,
     MatAutocompleteModule,
     MatProgressSpinnerModule,
-    MatSortModule
+    MatSortModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatTabsModule,
+    MatButtonModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent],
