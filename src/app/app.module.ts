@@ -19,6 +19,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatCardModule } from '@angular/material/card';
 
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
@@ -32,6 +33,7 @@ import { BarChartComponent } from './home/state-detail/bar-chart/bar-chart.compo
 import { LineChartComponent } from './home/state-detail/line-chart/line-chart.component';
 import { FaqComponent } from './about/faq/faq.component';
 import { LoginComponent } from './login/login.component';
+import { ForgotPasswordComponent } from './login/forgot-password/forgot-password.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,6 +49,7 @@ import { LoginComponent } from './login/login.component';
     LineChartComponent,
     FaqComponent,
     LoginComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,7 +69,8 @@ import { LoginComponent } from './login/login.component';
     MatInputModule,
     MatTabsModule,
     MatButtonModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -13,6 +13,10 @@ export interface AuthResponseData {
   localId: string;
   registered?: boolean;
 }
+export interface ResetPasswordResponse {
+  kind: string;
+  email: string;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -50,16 +54,17 @@ export class AuthService {
   login(email: string, password: string) {
     return this.http
       .post<AuthResponseData>(
-        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' + environment.firebaseAPIKey,
+        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' +
+          environment.firebaseAPIKey,
         {
           email: email,
           password: password,
-          returnSecureToken: true
+          returnSecureToken: true,
         }
       )
       .pipe(
         catchError(this.handleError),
-        tap(resData => {
+        tap((resData) => {
           this.handleAuthentication(
             resData.email,
             resData.localId,
@@ -68,6 +73,18 @@ export class AuthService {
           );
         })
       );
+  }
+
+  forgotPassword(requestedEmail: string) {
+    return this.http.post<any>(
+      'https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=' +
+        environment.firebaseAPIKey,
+      {
+        requestType: 'PASSWORD_RESET',
+        email: requestedEmail,
+      },
+      { observe: 'response' }
+    );
   }
 
   autoLogin() {
@@ -131,7 +148,7 @@ export class AuthService {
     if (!errorRes.error || !errorRes.error.error) {
       return throwError(errorMessage);
     }
-    errorMessage = errorRes.error.error.message
+    errorMessage = errorRes.error.error.message;
     // switch (errorRes.error.error.message) {
     //   case 'EMAIL_EXISTS':
     //     errorMessage = 'This email exists already';
