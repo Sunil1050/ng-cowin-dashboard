@@ -5,6 +5,7 @@ import { AboutComponent } from './about/about.component';
 import { StateDetailComponent } from './home/state-detail/state-detail.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './login/auth.guard';
+import { ForgotPasswordComponent } from './login/forgot-password/forgot-password.component';
 
 const routes: Routes = [
   {
@@ -24,8 +25,11 @@ const routes: Routes = [
   },
   {
     path: 'auth',
-    // component: AuthFormComponent
-    component: LoginComponent
+    component: LoginComponent,
+  },
+  {
+    path: 'forgot-password',
+    component: ForgotPasswordComponent
   }
 ];
 

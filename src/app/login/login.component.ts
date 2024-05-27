@@ -75,6 +75,14 @@ export class LoginComponent {
     }
   }
 
+  onForgotPassword() {
+    this.router.navigate(['forgot-password']);
+  }
+
+  onClickSignUp() {
+    this.currentForm = 'signup';
+  }
+
   showErrorSnackbar(message: string, action: string) {
     this._snackBar.open(message, action, {
       horizontalPosition: 'center',
